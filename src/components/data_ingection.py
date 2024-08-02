@@ -20,7 +20,7 @@ class data_ingection:
     def intiate_data_ingection_cofig(self):
         logging.info("enter the the data ingection method or componet")
         try:
-            df=pd.read_csv('notebook\data\StudentsPerformance.csv')
+            df=pd.read_csv('StudentsPerformance.csv')
             logging.info('read the data set as data frame')
 
             os.makedirs(os.path.dirname(self.ingection_cofig.train_data_path),exist_ok=True)
