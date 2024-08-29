@@ -11,31 +11,43 @@ def save_obj(file_path, obj):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def evaluate_model(x_train, x_test, y_train, y_test, model):
-    """
-    Evaluates multiple models and returns a dictionary with model names and their corresponding r2 scores.
+from sklearn.metrics import r2_score
 
-    Parameters:
-    - x_train: Training features
-    - x_test: Testing features
-    - y_train: Training labels
-    - y_test: Testing labels
-    - models: Dictionary of model names and instances
+def evaluate_model(X_train, y_train, X_test, y_test, models):
+    """
+    Trains multiple models and evaluates them on test data without hyperparameter tuning.
+
+    Args:
+        X_train (pd.DataFrame): Training features.
+        y_train (pd.Series): Training target variable.
+        X_test (pd.DataFrame): Test features.
+        y_test (pd.Series): Test target variable.
+        models (dict): Dictionary of model names and instantiated model objects.
 
     Returns:
-    - model_report: Dictionary of model names and their r2 scores
+        dict: Dictionary containing model names and their test R2 scores.
     """
-    model_report = {}
-    for model_name, model_instance in model.items():
-        model_instance.fit(x_train, y_train)
-        y_test_predict = model_instance.predict(x_test)
+    try:
+        report = {}
 
-        # Flatten y_test_predict if y_test is 1-dimensional
-        if y_test.ndim == 1:
-            y_test_predict = y_test_predict.flatten()
+        for model_name, model in models.items():
+            print(f"Training model: {model_name}")
 
-        # Calculate r2 score
-        test_model_score = r2_score(y_test, y_test_predict)
-        model_report[model_name] = test_model_score
+            # Train the model with default parameters
+            model.fit(X_train, y_train)
 
-    return model_report
+            # Evaluate the model on training and test data
+            y_train_pred = model.predict(X_train)
+            y_test_pred = model.predict(X_test)
+
+            train_model_score = r2_score(y_train, y_train_pred)
+            test_model_score = r2_score(y_test, y_test_pred)
+
+            # Save test score in report
+            report[model_name] = test_model_score
+
+            print(f"{model_name}: Train R2 Score = {train_model_score:.4f}, Test R2 Score = {test_model_score:.4f}")
+
+        return report
+    except Exception as e:
+        raise e

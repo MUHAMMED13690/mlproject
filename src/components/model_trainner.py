@@ -6,7 +6,7 @@ from xgboost import XGBRegressor
 import os
 import logging
 from sklearn.metrics import r2_score
-from src.utilze import save_obj, evaluate_model
+from src.utilze import save_obj,evaluate_model
 from dataclasses import dataclass
 
 @dataclass
@@ -40,8 +40,9 @@ class model_trainer:
                 'XGBRegressor': XGBRegressor(),
                 'Gradientboost': GradientBoostingRegressor()
             }
-
-            model_report: dict = evaluate_model(x_train=x_train, x_test=x_test, y_train=y_train, y_test=y_test, model=models)
+            
+            # Corrected function call
+            model_report: dict = evaluate_model(x_train, y_train, x_test, y_test, models)
 
             best_model_score = max(sorted(model_report.values()))
 
@@ -64,3 +65,4 @@ class model_trainer:
         except Exception as e:
             logging.error(f"An error occurred during model training: {e}")
             raise e
+
