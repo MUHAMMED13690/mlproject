@@ -57,3 +57,11 @@ def evaluate_model(X_train, y_train, X_test, y_test, models):
         return report  # Return the dictionary containing model names and their test R2 scores
     except Exception as e:
         raise e  # Raise any exceptions that occur during model evaluation
+def load_object(file_path):
+        try:
+            with open(file_path,"wr") as file_obj:
+                pickle.dump(file_obj)
+
+        except Exception as e:
+            raise e
+
