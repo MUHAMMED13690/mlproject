@@ -58,10 +58,11 @@ def evaluate_model(X_train, y_train, X_test, y_test, models):
     except Exception as e:
         raise e  # Raise any exceptions that occur during model evaluation
 def load_object(file_path):
-        try:
-            with open(file_path,"wr") as file_obj:
-                pickle.dump(file_obj)
-
-        except Exception as e:
-            raise e
+    try:
+        # Open the file in read-binary mode
+        with open(file_path, "rb") as file_obj:
+            # Load the pickled object
+            return pickle.load(file_obj)
+    except Exception as e:
+        raise e  # Raise any exceptions that occur during loading
 

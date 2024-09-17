@@ -1,22 +1,24 @@
 import pandas as pd
 import numpy as np
 import os
-from src.utilze import load_object
+
+
 
 class predict_pipline:
     def __init__(self):
         pass
 
-    def predict(self,feature):
+    def predict(self, feature):
+        from src.utilze import load_object  # Moved import here
         try:
-            model_path=os.path.join('artifact\model.pkl')
-            preprocessor_path=os.path.join('artifact\preprocess_pkl')       
+            model_path = os.path.join('artifact', 'model.pkl')
+            preprocessor_path = os.path.join('artifact', 'preprocess_pkl')       
             print("Before Loading")
-            model=load_object(file_path=model_path)
-            preprocessor=load_object(file_path=preprocessor_path)
+            model = load_object(file_path=model_path)
+            preprocessor = load_object(file_path=preprocessor_path)
             print("After Loading")
-            data_scaled=preprocessor.transform(feature)
-            preds=model.predict(data_scaled)
+            data_scaled = preprocessor.transform(feature)
+            preds = model.predict(data_scaled)
             return preds
 
         except Exception as e:

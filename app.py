@@ -10,7 +10,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     try:
-        return render_template('index.html')
+        return "Hello, World!"
     except Exception as e:
         return str(e), 500
 
@@ -18,7 +18,8 @@ def index():
 def predict_datapoint():
     if request.method == 'GET':
         try:
-            return render_template('home.html')
+            return render_template('home.html')  # Corrected the path
+
         except Exception as e:
             return str(e), 500
     else:
@@ -41,12 +42,12 @@ def predict_datapoint():
             print("Mid Prediction")
             results = pipeline.predict(pred_df)
             print("After Prediction")
-
-            return render_template('home.html', results=results[0])
+            return render_template('home.html', results=results[0])  # Corrected the path
 
         except Exception as e:
             print(f"An error occurred during prediction: {e}")
             return str(e), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)

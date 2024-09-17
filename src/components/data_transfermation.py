@@ -27,8 +27,8 @@ class ColumnTransformerPipeline:
         """Constructs and returns a ColumnTransformer object for preprocessing."""
         try:
             # Define the feature lists for numeric and categorical features
-            num_features = ['reading score', 'writing score']
-            cat_features = ['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course']
+            num_features = ['reading score','writing score']
+            cat_features = ['gender','race/ethnicity','parental level of education','lunch','test preparation course']
             
             # Pipeline for numeric features: impute missing values and scale
             num_pipeline = Pipeline(
